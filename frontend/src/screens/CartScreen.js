@@ -25,7 +25,7 @@ const CartScreen = ({ match, location, history }) => {
       dispatch(addToCart(productId, qty));
     }
   }, [dispatch, productId, qty]);
-  
+
   const handleRemoveitemFromCart = (id) => {
     dispatch(removeFromCart(id));
   };
