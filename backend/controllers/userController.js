@@ -98,4 +98,64 @@ const updateUserProfile = asyncHandler(async (req, res) => {
     }
 
 })
-export { authUser, createUser, getUserProfile, updateUserProfile }
+
+
+const getUsers = asyncHandler(async (req, res) => {
+
+    const users = await User.find({})
+    if (users) {
+        res.status(200).json(users)
+    } else {
+        res.status(404)
+        throw new Error('No users')
+    }
+})
+
+const getUser = asyncHandler(async (req, res) => {
+    const user = await User.findById(req.params.id)
+    if (user) {
+        res.status(200).json(user)
+    } else {
+        res.status(404)
+        throw new Error('User not found')
+    }
+})
+
+
+const updateUser = asyncHandler(async (req, res) => {
+    const user = await User.findById(req.params.id)
+
+    if (user) {
+        user.name = req.body.name || user.name
+        user.email = req.body.email || user.email
+        if (req.body.isAdmin) {
+            user.isAdmin = req.body.isAdmin
+        }
+        const updatedUser = await user.save()
+        const { _id, name, email, isAdmin } = updatedUser
+        return res.status(200).json({
+            _id,
+            name,
+            email,
+            isAdmin,
+        })
+    }
+    else {
+        res.status(404);
+        throw new Error('User not found')
+    }
+
+})
+
+const deleteUser = asyncHandler(async (req, res) => {
+    const user = await User.findById(req.params.id)
+    if (user) {
+        await user.remove()
+        res.status(200).json('User successfully removed')
+    } else {
+        res.status(404)
+        throw new Error('User not found')
+    }
+})
+
+export { authUser, createUser, getUserProfile, updateUserProfile, getUsers, getUser, updateUser, deleteUser }

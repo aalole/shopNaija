@@ -26,4 +26,15 @@ const verifyUser = asyncHandler(async (req, res, next) => {
     }
 })
 
-export default verifyUser
+
+const isAdmin = (req, res, next) => {
+    const user = req.user
+    if (user && user.isAdmin) {
+        return next()
+    } else {
+        res.status(401)
+        throw new Error('Permission denied because you are not an Admin')
+    }
+}
+
+export { verifyUser, isAdmin }

@@ -5,27 +5,31 @@ import { Row, Col, Button, Form } from 'react-bootstrap'
 import { login } from '../actions/userActions'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
-import { FormConatianer } from '../components/FormConatianer'
+import { FormContainer } from '../components/FormContainer'
 
 const LoginScreen = ({ location, history }) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+
     const dispatch = useDispatch()
-    const redirect = location.search ? location.search.split('=')[1] : '/';
+
     const userLogin = useSelector((s) => s.loginUser)
     const { loading, error, userInfo } = userLogin
+
+    const redirect = location.search ? location.search.split('=')[1] : '/';
 
     useEffect(() => {
         if (userInfo) {
             history.push(redirect)
         }
-    }, [history, redirect, userInfo])
+    }, [history, userInfo, redirect])
+
     const handleSubmit = (e) => {
         e.preventDefault()
         dispatch(login(email, password))
     }
     return (
-        <FormConatianer >
+        <FormContainer >
             <h1>Sign In</h1>
             {error && <Message variant='danger'>{error}</Message>}
             {loading && <Loader />}
@@ -49,7 +53,7 @@ const LoginScreen = ({ location, history }) => {
                     New Customer ? <Link to={redirect ? `/register/?redirect=${redirect}` : '/register'}>Register</Link>
                 </Col>
             </Row>
-        </FormConatianer>
+        </FormContainer>
     )
 }
 

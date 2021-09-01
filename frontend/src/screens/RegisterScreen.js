@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { Row, Col, Button, Form } from 'react-bootstrap'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
-import { FormConatianer } from '../components/FormConatianer'
+import { FormContainer } from '../components/FormContainer'
 import { register } from '../actions/userActions'
 
 const RegisterScreen = ({ location, history }) => {
@@ -34,7 +34,7 @@ const RegisterScreen = ({ location, history }) => {
         }
     }
     return (
-        <FormConatianer >
+        <FormContainer >
             <h1>Sign Up </h1>
             {msg && <Message variant='danger'>{msg}</Message>}
             {error && <Message variant='danger'>{error}</Message>}
@@ -71,7 +71,7 @@ const RegisterScreen = ({ location, history }) => {
                     Already Have an Account ? <Link to={redirect ? `/login/?redirect=${redirect}` : '/login'}>Sign In</Link>
                 </Col>
             </Row>
-        </FormConatianer>
+        </FormContainer>
     )
 }
 
