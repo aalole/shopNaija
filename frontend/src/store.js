@@ -4,6 +4,10 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import {
   productListReducer,
   productDetailsReducer,
+  productDeleteReducer,
+  productCreateReducer,
+  productUpdateReducer
+
 } from "./reducers/productReducer";
 import {
   userLoginReducer,
@@ -15,7 +19,14 @@ import {
   adminUpdateUserReducer
 } from './reducers/userReducer'
 import cartReducer from "./reducers/cartReducer";
-import { createOrderReducer, orderDetailsReducer, orderPayReducer, listMyOrdersReducer } from './reducers/orderReducer'
+import {
+  createOrderReducer,
+  orderDetailsReducer,
+  orderPayReducer,
+  orderDeliverReducer,
+  listMyOrdersReducer,
+  orderListReducer
+} from './reducers/orderReducer'
 
 const itemsFromStorage = localStorage.getItem("cartItems")
   ? JSON.parse(localStorage.getItem("cartItems"))
@@ -31,6 +42,8 @@ const userAddressInLocalStorage = localStorage.getItem("shippingAddress")
 const reducer = combineReducers({
   productList: productListReducer,
   productDetails: productDetailsReducer,
+  productDelete: productDeleteReducer,
+  productCreate: productCreateReducer,
   cart: cartReducer,
   loginUser: userLoginReducer,
   registerUser: registerUserReducer,
@@ -39,10 +52,13 @@ const reducer = combineReducers({
   createOrder: createOrderReducer,
   orderDetails: orderDetailsReducer,
   orderPay: orderPayReducer,
+  orderDeliver: orderDeliverReducer,
   myOrderList: listMyOrdersReducer,
+  orderList: orderListReducer,
   userList: listUsersReducer,
   userDelete: deleteUserReducer,
-  adminUpdateUser: adminUpdateUserReducer
+  adminUpdateUser: adminUpdateUserReducer,
+  productUpdate: productUpdateReducer
 });
 
 const initialState = {

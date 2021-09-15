@@ -12,7 +12,14 @@ import {
     MY_ORDER_LIST_REQUEST,
     MY_ORDER_LIST_SUCCESS,
     MY_ORDER_LIST_FAIL,
-    MY_ORDER_LIST_RESET
+    MY_ORDER_LIST_RESET,
+    ORDER_LIST_REQUEST,
+    ORDER_LIST_SUCCESS,
+    ORDER_LIST_FAIL,
+    ORDER_DELIVER_REQUEST,
+    ORDER_DELIVER_SUCCESS,
+    ORDER_DELIVER_FAIL,
+    ORDER_DELIVER_RESET
 } from '../constants/orderConstant'
 
 const createOrderReducer = (state = {}, action) => {
@@ -28,6 +35,29 @@ const createOrderReducer = (state = {}, action) => {
                 order: action.payload
             }
         case CREATE_ORDER_FAIL:
+            return {
+                loading: false,
+                error: action.payload.data
+            }
+
+        default:
+            return state
+    }
+}
+
+const orderListReducer = (state = { orders: [] }, action) => {
+    switch (action.type) {
+        case ORDER_LIST_REQUEST:
+            return {
+                ...state,
+                loading: true
+            }
+        case ORDER_LIST_SUCCESS:
+            return {
+                loading: false,
+                orders: action.payload
+            }
+        case ORDER_LIST_FAIL:
             return {
                 loading: false,
                 error: action.payload.data
@@ -85,6 +115,30 @@ const orderPayReducer = (state = {}, action) => {
     }
 }
 
+const orderDeliverReducer = (state = {}, action) => {
+    switch (action.type) {
+        case ORDER_DELIVER_REQUEST:
+            return {
+                loading: true
+            }
+        case ORDER_DELIVER_SUCCESS:
+            return {
+                loading: false,
+                isSuccessful: true
+            }
+        case ORDER_DELIVER_FAIL:
+            return {
+                loading: false,
+                error: action.payload
+            }
+        case ORDER_DELIVER_RESET:
+            return {}
+
+        default:
+            return state
+    }
+}
+
 const listMyOrdersReducer = (state = { orders: [] }, action) => {
     switch (action.type) {
         case MY_ORDER_LIST_REQUEST:
@@ -111,4 +165,4 @@ const listMyOrdersReducer = (state = { orders: [] }, action) => {
     }
 }
 
-export { createOrderReducer, orderDetailsReducer, orderPayReducer, listMyOrdersReducer }
+export { createOrderReducer, orderDetailsReducer, orderPayReducer, listMyOrdersReducer, orderListReducer, orderDeliverReducer }
