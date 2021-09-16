@@ -14,11 +14,6 @@ const OrderListScreen = ({ history }) => {
     const orderList = useSelector(s => s.orderList)
     const { loading, error, orders } = orderList
 
-    // const productDelete = useSelector(s => s.productDelete)
-    // const { loading: loadingDelete, error: errorDelete, isSuccessful } = productDelete
-    const handleDeleteOrder = id => {
-        console.log('order deleted ');
-    }
 
     const loginUser = useSelector(s => s.loginUser)
     const { userInfo } = loginUser
@@ -27,8 +22,6 @@ const OrderListScreen = ({ history }) => {
 
         if (userInfo && userInfo.isAdmin) {
             dispatch(listOrders())
-            console.log(orders)
-
         } else {
             history.push('/login')
         }

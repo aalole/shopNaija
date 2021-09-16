@@ -17,14 +17,11 @@ import UserListScreen from "./screens/UserListScreen";
 import ProductListScreen from "./screens/ProductListScreen";
 import ProductEditScreen from "./screens/ProductEditScreen";
 import UserEditScreen from "./screens/UserEditScreen";
-import { useSelector } from 'react-redux'
 
 
 import "./App.css";
 
 function App() {
-  const loginUser = useSelector(s => s.loginUser)
-  const { userInfo } = loginUser
   return (
     <Router>
       <Header />
@@ -37,16 +34,17 @@ function App() {
           <Route path='/order/:id' component={OrderScreen} />
           <Route path='/register' component={RegisterScreen} />
           <Route path='/profile' component={ProfileScreen} />
-          {
-            userInfo && userInfo.isAdmin && <Route path='/admin/userlist' component={UserListScreen} />
-
-          }
-          <Route path='/admin/productlist' component={ProductListScreen} />
+          <Route path='/admin/userlist' component={UserListScreen} />
+          <Route exact path='/admin/productlist' component={ProductListScreen} />
+          <Route exact path='/admin/productlist/:pageNumber' component={ProductListScreen} />
           <Route path='/admin/orderlist' component={OrderListScreen} />
           <Route path='/admin/product/:id/edit' component={ProductEditScreen} />
           <Route path='/product/:id' component={ProductScreen} />
           <Route path='/admin/user/:id/edit' component={UserEditScreen} />
           <Route path='/cart/:id?' component={CartScreen} />
+          <Route path='/search/:keyword' component={Homescreen} />
+          <Route exact path='/page/:pageNumber' component={Homescreen} />
+          <Route exact path='/search/:keyword/page/:pageNumber' component={Homescreen} />
           <Route exact path='/' component={Homescreen} />
         </Container>
       </main>
