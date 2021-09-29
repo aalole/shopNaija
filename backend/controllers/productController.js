@@ -30,7 +30,7 @@ const getAllProducts = asyncHandler(async (req, res) => {
         }
     } : {}
 
-    const pagesize = 10
+    const pagesize = 5
     const page = Number(req.query.pageNumber) || 1
 
     const count = await Product.countDocuments({ ...keyword })
