@@ -21,7 +21,7 @@ if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'))
 }
 
-const PORT = process.env.PORT || 4040;
+const PORT = process.env.PORT || 4000;
 
 app.use(express.json())
 
